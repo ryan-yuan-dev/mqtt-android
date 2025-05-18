@@ -1,4 +1,5 @@
 import info.git.versionHelper.getVersionText
+import info.git.versionHelper.runCommand
 
 plugins {
     id("com.android.library")
@@ -6,6 +7,9 @@ plugins {
     id("maven-publish")
     id("com.google.devtools.ksp")
 }
+
+val versionText = "git rev-list --count HEAD".runCommand(project.rootDir)
+
 
 android {
     namespace = "info.mqtt.android.service"
@@ -16,7 +20,7 @@ android {
 
         // Android Studio 4.1 doesn"t generate versionName in libraries any more
         // https://developer.android.com/studio/releases/gradle-plugin#version_properties_removed_from_buildconfig_class_in_library_projects
-        buildConfigField("String", "VERSION_NAME", "\"${getVersionText()}\"")
+        buildConfigField("String", "VERSION_NAME", "\"${versionText}\"")
 
         testApplicationId = "info.mgtt.android.service.test"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -63,6 +67,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    publishing {
+        singleVariant("release") {}
+    }
 }
 
 dependencies {
@@ -85,12 +92,3 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.6.1")
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                from(components["release"])
-            }
-        }
-    }
-}

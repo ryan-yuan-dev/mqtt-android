@@ -1,12 +1,15 @@
 import info.git.versionHelper.getGitCommitCount
 import info.git.versionHelper.getLatestGitHash
 import info.git.versionHelper.getVersionText
+import info.git.versionHelper.runCommand
 
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("com.google.devtools.ksp")
 }
+
+val versionText = "git rev-list --count HEAD".runCommand(project.rootDir)
 
 android {
     namespace = "info.mqtt.android.extsample"
@@ -17,7 +20,7 @@ android {
         compileSdk = 35
         targetSdk = 35
         versionCode = getGitCommitCount()
-        versionName = "${getVersionText()}.$versionCode-${getLatestGitHash()}"
+        versionName = "${versionText}.$versionCode-${getLatestGitHash()}"
 
         if (System.getenv("CI") == "true") { // Github action
             resValue("string", "add_connection_server_default", "10.0.2.2")

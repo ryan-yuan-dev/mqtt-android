@@ -1,11 +1,14 @@
 import info.git.versionHelper.getGitCommitCount
 import info.git.versionHelper.getLatestGitHash
 import info.git.versionHelper.getVersionText
+import info.git.versionHelper.runCommand
 
 plugins {
     id("com.android.application")
     id("kotlin-android")
 }
+
+val versionText = "git rev-list --count HEAD".runCommand(project.rootDir)
 
 android {
     namespace = "info.mqtt.java.example"
@@ -15,7 +18,7 @@ android {
         compileSdk = 35
         targetSdk = 35
         versionCode = getGitCommitCount()
-        versionName = "${getVersionText()}.$versionCode-${getLatestGitHash()}"
+        versionName = "${versionText}.$versionCode-${getLatestGitHash()}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments.putAll(
