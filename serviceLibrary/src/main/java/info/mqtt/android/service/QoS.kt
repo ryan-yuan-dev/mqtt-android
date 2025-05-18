@@ -9,7 +9,13 @@ enum class QoS(val value: Int) {
     companion object {
         @JvmStatic
         fun valueOf(qos: Int): QoS {
-            return entries[qos]
+            return when (qos) {
+                0 -> AtMostOnce
+                1 -> AtLeastOnce
+                2 -> ExactlyOnce
+                else -> throw IllegalArgumentException("qos must be 0, 1 or 2")
+            }
+//            return entries[qos]
         }
     }
 
