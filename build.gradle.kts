@@ -7,15 +7,15 @@ buildscript {
         maven { url = uri("https://plugins.gradle.org/m2/") }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.10.0")
+        classpath("com.android.tools.build:gradle:7.4.2")
         classpath("com.github.dcendents:android-maven-gradle-plugin:2.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.21")
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:12.2.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
     }
 }
 
 plugins {
-    id("com.google.devtools.ksp") version "2.1.21-2.0.1" apply false
+    id("com.google.devtools.ksp") version "1.8.0-1.0.8" apply false
 }
 
 println("Gradle uses Java ${Jvm.current()}")
@@ -37,3 +37,6 @@ allprojects {
     }
 
 }
+
+
+

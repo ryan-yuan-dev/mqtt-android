@@ -14,7 +14,7 @@ val versionText = "git rev-list --count HEAD".runCommand(project.rootDir)
 android {
     namespace = "info.mqtt.android.service"
     testNamespace = "info.mqtt.android.service.test"
-    compileSdk = 35
+    compileSdk = 34
     defaultConfig {
         minSdk = 21
 
@@ -30,15 +30,19 @@ android {
             ),
         )
 
-        packaging {
-            resources {
-                pickFirsts += setOf("META-INF/serviceLibrary_debug.kotlin_module")
-            }
+        packagingOptions {
+            pickFirsts += setOf("META-INF/serviceLibrary_release.kotlin_module")
         }
 
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
+//        packaging {
+//            resources {
+//                pickFirsts += setOf("META-INF/serviceLibrary_debug.kotlin_module")
+//            }
+//        }
+
+//        ksp {
+//            arg("room.schemaLocation", "$projectDir/schemas")
+//        }
 
         buildTypes {
             release {
@@ -53,7 +57,7 @@ android {
     }
 
     testOptions {
-        targetSdk = 35
+//        targetSdk = 34
     }
 
     testFixtures {
@@ -61,34 +65,41 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "11"
     }
     publishing {
         singleVariant("release") {}
+    }
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.lifecycle:lifecycle-livedata:2.5.1")
+            force("androidx.lifecycle:lifecycle-livedata-core:2.5.1")
+            force("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0")
+        }
     }
 }
 
 dependencies {
     api("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.core:core-ktx:1.16.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21")
-    implementation("androidx.work:work-runtime-ktx:2.10.1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0")
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
     implementation("com.github.AppDevNext.Logcat:LogcatCoreLib:3.3.1")
 
-    implementation("androidx.room:room-runtime:2.7.1")
-    ksp("androidx.room:room-compiler:2.7.1")
+    implementation("androidx.room:room-runtime:2.4.3")
+    ksp("androidx.room:room-compiler:2.4.3")
 
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.2.1")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
     androidTestUtil("androidx.test.services:test-services:1.5.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     androidTestImplementation("androidx.test:rules:1.6.1")
 }
 
