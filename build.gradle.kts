@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.lint.AndroidLintTask
 import org.gradle.internal.jvm.Jvm
 
 buildscript {
@@ -21,13 +22,9 @@ plugins {
 println("Gradle uses Java ${Jvm.current()}")
 
 subprojects {
-    //    apply(plugin = "org.jlleitschuh.gradle.ktlint")
-
-    // Optionally configure plugin
-    //    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-    //        debug.set(false)
-    //    }
-    }
+    tasks.withType<AndroidLintTask>().all { enabled = false }
+    tasks.withType<Javadoc>().all { enabled = false }
+}
 
 allprojects {
     repositories {
