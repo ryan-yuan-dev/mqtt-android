@@ -1,4 +1,4 @@
-import info.git.versionHelper.getVersionText
+//  import info.git.versionHelper.getVersionText
 import info.git.versionHelper.runCommand
 
 plugins {
@@ -9,7 +9,6 @@ plugins {
 }
 
 val versionText = "git rev-list --count HEAD".runCommand(project.rootDir)
-
 
 android {
     namespace = "info.mqtt.android.service"
@@ -103,4 +102,3 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     androidTestImplementation("androidx.test:rules:1.6.1")
 }
-
