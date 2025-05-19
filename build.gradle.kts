@@ -1,4 +1,7 @@
+import com.android.build.gradle.internal.lint.AndroidLintAnalysisTask
+import com.android.build.gradle.internal.lint.AndroidLintGlobalTask
 import com.android.build.gradle.internal.lint.AndroidLintTask
+import com.android.build.gradle.internal.lint.AndroidLintTextOutputTask
 import org.gradle.internal.jvm.Jvm
 
 buildscript {
@@ -24,6 +27,9 @@ println("Gradle uses Java ${Jvm.current()}")
 subprojects {
     tasks.withType<AndroidLintTask>().all { enabled = false }
     tasks.withType<Javadoc>().all { enabled = false }
+    tasks.withType<AndroidLintTextOutputTask> { enabled = false }
+    tasks.withType<AndroidLintGlobalTask> { enabled = false }
+    tasks.withType<AndroidLintAnalysisTask> { enabled = false }
 }
 
 allprojects {
