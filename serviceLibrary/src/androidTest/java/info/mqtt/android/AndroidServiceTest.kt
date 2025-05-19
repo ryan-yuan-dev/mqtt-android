@@ -4,8 +4,15 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import info.hannes.timber.DebugFormatTree
 import info.mqtt.android.service.MqttAndroidClient
-import org.eclipse.paho.client.mqttv3.*
-import org.junit.Assert.*
+import junit.framework.TestCase.assertFalse
+import junit.framework.TestCase.assertTrue
+import junit.framework.TestCase.fail
+import org.eclipse.paho.client.mqttv3.IMqttActionListener
+import org.eclipse.paho.client.mqttv3.IMqttAsyncClient
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
+import org.eclipse.paho.client.mqttv3.IMqttToken
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions
+import org.eclipse.paho.client.mqttv3.MqttMessage
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
@@ -13,7 +20,8 @@ import org.junit.Test
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import timber.log.Timber
-import java.util.*
+import java.util.Arrays
+import java.util.Date
 import java.util.concurrent.TimeUnit
 import kotlin.math.min
 
@@ -178,7 +186,7 @@ class AndroidServiceTest : IMqttActionListener {
             var subToken: IMqttToken
             val unSubToken: IMqttToken
             val pubToken: IMqttDeliveryToken
-            val mqttReceiver = MqttReceiver(mqttClient) //TODO do something about this?
+            val mqttReceiver = MqttReceiver(mqttClient) // TODO do something about this?
             mqttClient.setCallback(mqttReceiver)
             val connectToken: IMqttToken = mqttClient.connect(null, null)
             connectToken.waitForCompletion(waitForCompletionTime)
@@ -555,58 +563,6 @@ class AndroidServiceTest : IMqttActionListener {
             }
         }
     }
-
-    //	/** Originally commented out from the fv test version
-    //	 * Tests that invalid clientIds cannot connect.
-    //	 *
-    //	 * @throws Exception
-    //	 */
-    //	@Test
-    //	public void testBadClientId() throws Exception {
-    //		Log.banner(logger, class, methodName);
-    //		logger.entering(classCanonicalName, methodName);
-    //
-    //		// Client ids with length errors are now trapped by the client
-    //		// implementation.
-    //		// String[] clientIds = new
-    //		// String[]{"","Minus-ClientId","123456789012345678901234"};
-    //		String[] clientIds = new String[] { "Minus-ClientId" };
-    //		IMqttAsyncClient mqttClient = null;
-    //		IMqttToken connectToken ;
-    //		IMqttToken disconnectToken;
-    //
-    //		for (String clientId : clientIds) {
-    //			try {
-    //				mqttClient = new MqttAndroidClient(mContext, serverURI, "testConnect");
-    //						clientId);
-    //
-    //				try {
-    //					connectToken = mqttClient.connect(null, null);
-    //					connectToken.waitForCompletion(1000);
-    //					connectToken.reset();
-    //
-    //					disconnectToken = mqttClient.disconnect(null, null);
-    //					disconnectToken.waitForCompletion(1000);
-    //					disconnectToken.reset();
-    //
-    //					fail("We shouldn't have been able to connect!");
-    //				} catch (MqttException exception) {
-    //					// This is the expected exception.
-    //					logger.fine("We expect an exception because we used an invalid client id");
-    //					// logger.log(Level.SEVERE, "caught exception:", exception);
-    //				}
-    //			} catch (Exception exception) {
-    //				logger.fine("Failed:" + methodName + " exception="
-    //						+ exception.getClass().getName() + "."
-    //						+ exception.getMessage());
-    //				logger.exiting(classCanonicalName, methodName,
-    //						new Object[] { exception });
-    //				throw exception;
-    //			}
-    //		}
-    //
-    //		logger.exiting(classCanonicalName, methodName);
-    //	}
 
     @Test
     fun testHAConnect() {

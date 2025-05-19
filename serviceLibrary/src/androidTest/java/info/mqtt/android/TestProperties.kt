@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import java.io.IOException
 import java.io.InputStream
-import java.util.*
+import java.util.Properties
 
 internal class TestProperties(private val context: Context) {
 

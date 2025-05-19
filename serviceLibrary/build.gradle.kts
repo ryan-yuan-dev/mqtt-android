@@ -50,18 +50,18 @@ android {
             }
         }
 
-        buildFeatures {
-            buildConfig = true
-        }
+//        buildFeatures {
+//            buildConfig = true
+//        }
     }
 
-    testOptions {
-//        targetSdk = 34
-    }
+//    testOptions {
+////        targetSdk = 34
+//    }
 
-    testFixtures {
-        enable = true
-    }
+//    testFixtures {
+//        enable = true
+//    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -101,4 +101,5 @@ dependencies {
     androidTestUtil("androidx.test.services:test-services:1.5.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     androidTestImplementation("androidx.test:rules:1.6.1")
+    testImplementation(kotlin("test"))
 }

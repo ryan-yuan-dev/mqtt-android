@@ -11,14 +11,23 @@ import info.hannes.timber.DebugFormatTree
 import info.mqtt.android.service.MqttAndroidClient
 import info.mqtt.android.service.MqttService
 import info.mqtt.android.service.MqttServiceBinder
-import org.eclipse.paho.client.mqttv3.*
-import org.hamcrest.CoreMatchers.`is`
+import org.eclipse.paho.client.mqttv3.IMqttActionListener
+import org.eclipse.paho.client.mqttv3.IMqttAsyncClient
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken
+import org.eclipse.paho.client.mqttv3.IMqttToken
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions
+import org.eclipse.paho.client.mqttv3.MqttMessage
 import org.hamcrest.CoreMatchers.any
-import org.junit.*
+import org.hamcrest.CoreMatchers.`is`
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Ignore
+import org.junit.Rule
+import org.junit.Test
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import timber.log.Timber
-import java.util.*
+import java.util.Arrays
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 import kotlin.math.min
@@ -68,8 +77,8 @@ class AndroidServiceWithActionListenerTest {
 
     @Test
     fun testConnect() {
-        val mqttClient: IMqttAsyncClient?
-        mqttClient = MqttAndroidClient(InstrumentationRegistry.getInstrumentation().targetContext, serverURI!!, "testConnect")
+//        val mqttClient: IMqttAsyncClient
+        val mqttClient = MqttAndroidClient(InstrumentationRegistry.getInstrumentation().targetContext, serverURI!!, "testConnect")
         var token = mqttClient.connect(null, ActionListener(mqttClient))
         token.waitForCompletion(waitForCompletionTime)
         token = mqttClient.disconnect(InstrumentationRegistry.getInstrumentation().targetContext, ActionListener(mqttClient))
@@ -430,9 +439,9 @@ class AndroidServiceWithActionListenerTest {
                 mqttClient.getSSLSocketFactory(InstrumentationRegistry.getInstrumentation().targetContext.assets.open("test.bks"), keyStorePwd)
             var connectToken = mqttClient.connect(options, InstrumentationRegistry.getInstrumentation().targetContext, ActionListener(mqttClient))
             connectToken.waitForCompletion(waitForCompletionTime)
-            var disconnectToken: IMqttToken = mqttClient.disconnect(InstrumentationRegistry.getInstrumentation().targetContext, ActionListener(
-                mqttClient
-            )
+            var disconnectToken: IMqttToken = mqttClient.disconnect(
+                InstrumentationRegistry.getInstrumentation().targetContext,
+                ActionListener(mqttClient)
             )
             disconnectToken.waitForCompletion(waitForCompletionTime)
             connectToken = mqttClient.connect(options, InstrumentationRegistry.getInstrumentation().targetContext, ActionListener(mqttClient))
