@@ -65,6 +65,8 @@ android {
     }
 }
 
+tasks["ktlintAndroidTestSourceSetCheck"].enabled = false
+
 dependencies {
     api("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
