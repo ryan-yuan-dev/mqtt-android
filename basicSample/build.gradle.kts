@@ -46,6 +46,7 @@ android {
             force("androidx.lifecycle:lifecycle-livedata:2.5.1")
             force("androidx.lifecycle:lifecycle-livedata-core:2.5.1")
             force("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0")
+            force(" org.jetbrains:annotations:13.0")
         }
     }
 }
