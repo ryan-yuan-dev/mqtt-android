@@ -33,16 +33,6 @@ android {
             pickFirsts += setOf("META-INF/serviceLibrary_release.kotlin_module")
         }
 
-//        packaging {
-//            resources {
-//                pickFirsts += setOf("META-INF/serviceLibrary_debug.kotlin_module")
-//            }
-//        }
-
-//        ksp {
-//            arg("room.schemaLocation", "$projectDir/schemas")
-//        }
-
         buildTypes {
             release {
                 isMinifyEnabled = false
@@ -50,18 +40,10 @@ android {
             }
         }
 
-//        buildFeatures {
-//            buildConfig = true
-//        }
+        buildFeatures {
+            buildConfig = true
+        }
     }
-
-//    testOptions {
-////        targetSdk = 34
-//    }
-
-//    testFixtures {
-//        enable = true
-//    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
