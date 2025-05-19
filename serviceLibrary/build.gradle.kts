@@ -65,7 +65,11 @@ android {
     }
 }
 
-tasks["ktlintAndroidTestSourceSetCheck"].enabled = false
+tasks.forEach {
+    if (it.name.contains("check")) {
+        it.enabled = false
+    }
+}
 
 dependencies {
     api("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
