@@ -66,6 +66,7 @@ android {
 }
 
 tasks.forEach {
+    println("${it.name} ====")
     if (it.name.contains("check")) {
         it.enabled = false
     }

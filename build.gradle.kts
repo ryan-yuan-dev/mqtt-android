@@ -10,7 +10,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:7.4.2")
         classpath("com.github.dcendents:android-maven-gradle-plugin:2.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
+//        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
     }
 }
 
@@ -21,13 +21,13 @@ plugins {
 println("Gradle uses Java ${Jvm.current()}")
 
 subprojects {
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    //    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     // Optionally configure plugin
-    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-        debug.set(false)
+    //    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    //        debug.set(false)
+    //    }
     }
-}
 
 allprojects {
     repositories {
